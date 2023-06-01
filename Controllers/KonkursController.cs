@@ -57,7 +57,7 @@ namespace skoki.Controllers
             var wybrane = from z in _context.Skocznia
                                 select z;
             var res = wybrane.AsNoTracking();
-            ViewBag.KonkursId = new SelectList(res, "Id", "Nazwa", selected);
+            ViewBag.SkoczniaId = new SelectList(res, "Id", "Nazwa", selected);
         }
 
         // POST: Konkurs/Create
