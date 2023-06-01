@@ -65,10 +65,21 @@ namespace skoki.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nazwa,Rodzaj,Pora,Data")] Konkurs konkurs)
+        public async Task<IActionResult> Create([Bind("Id,Nazwa,Rodzaj,Pora,Data")] Konkurs konkurs, IFormCollection form)
         {
+            string skoczniaVal = form["SkoczniaDropDown"];
+
             if (ModelState.IsValid)
             {
+                Skocznia skocznia = null;
+                if (skoczniaVal != "-1")
+                {
+                    var ee = _context.Skocznia.Where(e => e.Id == int.Parse(skoczniaVal));
+                    if (ee.Count() > 0)
+                        skocznia = ee.First();
+                }
+                konkurs.Skocznia = skocznia;
+
                 _context.Add(konkurs);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
