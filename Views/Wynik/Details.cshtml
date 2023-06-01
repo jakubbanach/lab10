@@ -1,0 +1,48 @@
+@model Skoki.Models.Wynik
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Wynik</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Miejsce)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Miejsce)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Seria1)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Seria1)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Seria2)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Seria2)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nota)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nota)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PunktySezonowe)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PunktySezonowe)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
