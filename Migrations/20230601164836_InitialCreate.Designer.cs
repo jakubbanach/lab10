@@ -11,7 +11,7 @@ using MvcPracownik.Data;
 namespace skoki.Migrations
 {
     [DbContext(typeof(MvcPracownikContext))]
-    [Migration("20230601163322_InitialCreate")]
+    [Migration("20230601164836_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -27,6 +27,10 @@ namespace skoki.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Data")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nazwa")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Pora")

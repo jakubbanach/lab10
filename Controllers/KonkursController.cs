@@ -22,7 +22,7 @@ namespace skoki.Controllers
         // GET: Konkurs
         public async Task<IActionResult> Index()
         {
-              return _context.Konkurs != null ? 
+              return _context.Konkurs != null ?
                           View(await _context.Konkurs.ToListAsync()) :
                           Problem("Entity set 'MvcPracownikContext.Konkurs'  is null.");
         }
@@ -48,7 +48,16 @@ namespace skoki.Controllers
         // GET: Konkurs/Create
         public IActionResult Create()
         {
+            PopulateSkoczniaDropDownList();
             return View();
+        }
+
+        private void PopulateSkoczniaDropDownList(object? selected = null)
+        {
+            var wybrane = from z in _context.Skocznia
+                                select z;
+            var res = wybrane.AsNoTracking();
+            ViewBag.KonkursId = new SelectList(res, "Id", "Nazwa", selected);
         }
 
         // POST: Konkurs/Create
@@ -56,7 +65,7 @@ namespace skoki.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Rodzaj,Pora,Data")] Konkurs konkurs)
+        public async Task<IActionResult> Create([Bind("Id,Nazwa,Rodzaj,Pora,Data")] Konkurs konkurs)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +97,7 @@ namespace skoki.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Rodzaj,Pora,Data")] Konkurs konkurs)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nazwa,Rodzaj,Pora,Data")] Konkurs konkurs)
         {
             if (id != konkurs.Id)
             {
@@ -150,7 +159,7 @@ namespace skoki.Controllers
             {
                 _context.Konkurs.Remove(konkurs);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

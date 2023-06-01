@@ -26,6 +26,10 @@ namespace skoki.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Nazwa")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Pora")
                         .IsRequired()
                         .HasColumnType("TEXT");

@@ -64,6 +64,7 @@ namespace skoki.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Nazwa = table.Column<string>(type: "TEXT", nullable: false),
                     SkoczniaId = table.Column<int>(type: "INTEGER", nullable: false),
                     Rodzaj = table.Column<string>(type: "TEXT", nullable: false),
                     Pora = table.Column<string>(type: "TEXT", nullable: false),
