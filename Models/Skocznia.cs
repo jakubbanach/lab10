@@ -20,5 +20,6 @@ namespace Skoki.Models
 
         [Display(Name = "Rekord")]
         public decimal rekord;
+        public ICollection<Konkurs> ?Konkursy { get; set; }
     }
 }

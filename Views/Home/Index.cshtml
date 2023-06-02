@@ -3,6 +3,19 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @* <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> *@
+    <a href="@Url.Action("Create", "Zawodnik")" class="btn btn-primary">Dodaj nowego zawodnika</a>
+    <a href="@Url.Action("Create", "Skocznia")" class="btn btn-primary">Dodaj nową skocznię</a>
+    <a href="@Url.Action("Create", "Konkurs")" class="btn btn-primary">Dodaj nowy konkurs</a>
+    <a href="@Url.Action("Create", "Wynik")" class="btn btn-primary">Dodaj wyniki konkursu</a>
+</div>
+
+<div class="text-center">
+    @* <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> *@
+    <a href="@Url.Action("Index","Zawodnik")" class="btn btn-primary">Zobacz listę zawodników</a>
+    <a href="@Url.Action("Index","Skocznia")" class="btn btn-primary">Zobacz listę skoczni</a>
+    <a href="@Url.Action("Index","Konkurs")" class="btn btn-primary">Zobacz terminarz aktualnego sezonu</a>
+    <a href="@Url.Action("Index","Wynik")" class="btn btn-primary">Zobacz wyniki konkursów sezonu</a>
 </div>

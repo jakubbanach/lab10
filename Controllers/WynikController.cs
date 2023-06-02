@@ -22,7 +22,7 @@ namespace skoki.Controllers
         // GET: Wynik
         public async Task<IActionResult> Index()
         {
-              return _context.Wynik != null ?
+              return _context.Wynik != null ? 
                           View(await _context.Wynik.ToListAsync()) :
                           Problem("Entity set 'MvcPracownikContext.Wynik'  is null.");
         }
@@ -68,7 +68,6 @@ namespace skoki.Controllers
         //     var res = wybrane.AsNoTracking();
         //     ViewBag.ZawodnikId = new SelectList(res, "Id", "Nazwisko", selected);
         // }
-
         // POST: Wynik/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -97,6 +96,14 @@ namespace skoki.Controllers
             if (wynik == null)
             {
                 return NotFound();
+            }
+            if (wynik.Konkurs != null)
+            {
+                PopulateKonkursDropDownList(wynik.Konkurs.Id);
+            }
+            else
+            {
+                PopulateKonkursDropDownList();
             }
             return View(wynik);
         }
@@ -168,7 +175,7 @@ namespace skoki.Controllers
             {
                 _context.Wynik.Remove(wynik);
             }
-
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

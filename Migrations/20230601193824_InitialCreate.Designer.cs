@@ -11,7 +11,7 @@ using MvcPracownik.Data;
 namespace skoki.Migrations
 {
     [DbContext(typeof(MvcPracownikContext))]
-    [Migration("20230601164836_InitialCreate")]
+    [Migration("20230601193824_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -80,6 +80,9 @@ namespace skoki.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("KonkursId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Miejsce")
                         .HasColumnType("INTEGER");
 
@@ -95,7 +98,14 @@ namespace skoki.Migrations
                     b.Property<decimal>("Seria2")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("ZawodnikId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("KonkursId");
+
+                    b.HasIndex("ZawodnikId");
 
                     b.ToTable("Wynik");
                 });
@@ -126,12 +136,38 @@ namespace skoki.Migrations
             modelBuilder.Entity("Skoki.Models.Konkurs", b =>
                 {
                     b.HasOne("Skoki.Models.Skocznia", "Skocznia")
-                        .WithMany()
+                        .WithMany("Konkursy")
                         .HasForeignKey("SkoczniaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Skocznia");
+                });
+
+            modelBuilder.Entity("Skoki.Models.Wynik", b =>
+                {
+                    b.HasOne("Skoki.Models.Konkurs", null)
+                        .WithMany("Wyniki")
+                        .HasForeignKey("KonkursId");
+
+                    b.HasOne("Skoki.Models.Zawodnik", null)
+                        .WithMany("Wyniki")
+                        .HasForeignKey("ZawodnikId");
+                });
+
+            modelBuilder.Entity("Skoki.Models.Konkurs", b =>
+                {
+                    b.Navigation("Wyniki");
+                });
+
+            modelBuilder.Entity("Skoki.Models.Skocznia", b =>
+                {
+                    b.Navigation("Konkursy");
+                });
+
+            modelBuilder.Entity("Skoki.Models.Zawodnik", b =>
+                {
+                    b.Navigation("Wyniki");
                 });
 #pragma warning restore 612, 618
         }

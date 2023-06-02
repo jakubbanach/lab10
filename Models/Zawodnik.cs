@@ -12,5 +12,6 @@ namespace Skoki.Models
         public string Nazwisko { get; set; } = default!;
         [Display(Name = "Kraj pochodzenia")]
         public string Kraj { get; set; } = default!;
+        public ICollection<Wynik> ?Wyniki { get; set; }
     }
 }

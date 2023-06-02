@@ -22,7 +22,8 @@ namespace skoki.Controllers
         // GET: Konkurs
         public async Task<IActionResult> Index()
         {
-              return _context.Konkurs != null ?
+
+              return _context.Konkurs != null ? 
                           View(await _context.Konkurs.ToListAsync()) :
                           Problem("Entity set 'MvcPracownikContext.Konkurs'  is null.");
         }
@@ -36,6 +37,7 @@ namespace skoki.Controllers
             }
 
             var konkurs = await _context.Konkurs
+
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (konkurs == null)
             {
@@ -71,15 +73,6 @@ namespace skoki.Controllers
 
             if (ModelState.IsValid)
             {
-                Skocznia skocznia = null;
-                if (skoczniaVal != "-1")
-                {
-                    var ee = _context.Skocznia.Where(e => e.Id == int.Parse(skoczniaVal));
-                    if (ee.Count() > 0)
-                        skocznia = ee.First();
-                }
-                konkurs.Skocznia = skocznia;
-
                 _context.Add(konkurs);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -99,6 +92,14 @@ namespace skoki.Controllers
             if (konkurs == null)
             {
                 return NotFound();
+            }
+            if (konkurs.Skocznia != null)
+            {
+                PopulateSkoczniaDropDownList(konkurs.Skocznia.Id);
+            }
+            else
+            {
+                PopulateSkoczniaDropDownList();
             }
             return View(konkurs);
         }
@@ -170,7 +171,7 @@ namespace skoki.Controllers
             {
                 _context.Konkurs.Remove(konkurs);
             }
-
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
